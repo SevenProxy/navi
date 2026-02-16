@@ -78,7 +78,6 @@ fn run_started_log() -> Vec<StartedLog> {
 
 #[component]
 pub fn StartRoot(props: &PropsStart) -> Html {
-    let props = props.clone();
     let states = use_reducer(|| BootState {
         lines: Vec::new(),
     });
@@ -86,14 +85,19 @@ pub fn StartRoot(props: &PropsStart) -> Html {
 
     {
         let states = states.dispatcher();
-        let props = props.clone();
         let timeout_ref = timeout_ref.clone();
+        let props = props.clone();
 
         use_effect_with((), move |_|  {
             let delay_step = 600;
+            let logs = run_started_log();
+            let total_log = logs.len();
 
-            for (i, v) in run_started_log().into_iter().enumerate() {
+            for (i, v) in logs.into_iter().enumerate() {
                 let dispatch = states.clone();
+                let props = props.clone();
+
+                let is_last = i == total_log - 1;
 
                 let time_closure = Timeout::new(i as u32 * delay_step, move || {
                     match &v {
@@ -118,6 +122,10 @@ pub fn StartRoot(props: &PropsStart) -> Html {
                             }));
                         },
                     }
+
+                    if is_last {
+                        props.state.set(false);
+                    }
                 });
 
                 timeout_ref.borrow_mut().push(time_closure);
@@ -125,7 +133,6 @@ pub fn StartRoot(props: &PropsStart) -> Html {
 
             move || {
                 timeout_ref.borrow_mut().clear();
-                props.state.set(false);
             }
         });
     }

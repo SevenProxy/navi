@@ -25,7 +25,7 @@ fn App() -> Html {
 
     let props_start = yew::props! {
         PropsStart {
-            state: &bootloader_start,
+            state: bootloader_start.clone(),
         }
     };
 
