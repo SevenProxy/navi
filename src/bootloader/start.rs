@@ -70,6 +70,7 @@ fn run_started_log() -> Vec<StartedLog> {
         StartedLog::Ok("Reached target Sockets".into()),
         StartedLog::Ok("Mounted target Temporary Directory (/bin)".into()),
         StartedLog::Null("starting network time synchronization.".into()),
+        StartedLog::Ok("Geting LocalStorage.".into()),
         StartedLog::Ok("Completed.".into()),
     ];
 

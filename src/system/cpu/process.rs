@@ -7,7 +7,7 @@ use crate::binare::{
 use crate::system::local_storage::get_all_storage_values;
 
 #[component]
-pub fn Htop() -> Html {
+pub fn Process() -> Html {
     let storage_data = use_state(HashMap::new);
 
     {

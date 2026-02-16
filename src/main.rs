@@ -15,8 +15,8 @@ use components::{
 };
 
 use system::{
-    Htop,
-    PantheonDesktopRoot,
+    Process,
+    Desktop,
 };
 
 #[component]
@@ -38,9 +38,9 @@ fn App() -> Html {
                     <div class="h-full">
                         <HeaderRoot />
                         <main class="h-full">
-                            <PantheonDesktopRoot>
-                                <Htop/>
-                            </PantheonDesktopRoot>
+                            <Desktop>
+                                <Process/>
+                            </Desktop>
                         </main>
                         <NavbarRoot />
                     </div>
