@@ -4,6 +4,7 @@ mod system;
 mod binare;
 
 use yew::prelude::*;
+use std::collections::HashMap;
 
 use bootloader::{
     StartRoot,
@@ -19,9 +20,17 @@ use system::{
     Desktop,
 };
 
+#[derive(Clone, PartialEq)]
+struct Management {
+    pub pid: HashMap<String, String>,
+}
+
 #[component]
 fn App() -> Html {
     let bootloader_start = use_state(|| true);
+    let storage_data = use_state(|| Management {
+        pid: HashMap::new(),
+    });
 
     let props_start = yew::props! {
         PropsStart {
@@ -29,8 +38,10 @@ fn App() -> Html {
         }
     };
 
+
+
     html!{
-        <div>
+        <ContextProvider<UseStateHandle<Management>> context={storage_data}>
             if *bootloader_start {
                 <StartRoot ..props_start/>
             } else {
@@ -46,7 +57,7 @@ fn App() -> Html {
                     </div>
                 </div>
             }
-        </div>
+        </ContextProvider<UseStateHandle<Management>>>
     }
 }
 

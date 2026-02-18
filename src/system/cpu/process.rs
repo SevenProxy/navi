@@ -4,16 +4,21 @@ use crate::binare::{
     Foot,
     Lain,
 };
-use crate::system::local_storage::get_all_storage_values;
+use crate::{
+    Management,
+    system::local_storage::get_all_storage_values,
+};
 
 #[component]
 pub fn Process() -> Html {
-    let storage_data = use_state(HashMap::new);
+    let state = use_context::<UseStateHandle<Management>>().expect("No ctx found");
 
     {
-        let storage_data = storage_data.clone();
+        let storage_data = state.clone();
         use_effect_with((), move |_| {
-            storage_data.set(get_all_storage_values());
+            storage_data.set( Management {
+                pid: get_all_storage_values(),
+            });
             || ()
         });
     }
@@ -21,7 +26,7 @@ pub fn Process() -> Html {
     html!{
         <div>
             {
-                for storage_data.iter().map(|(k,v)| {
+                for state.pid.iter().map(|(k,v)| {
                     match v.as_str() {
                         "foot" => html!{
                             <Foot key={k.clone()} />
