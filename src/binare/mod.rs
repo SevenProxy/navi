@@ -1,5 +1,2 @@
-mod foot;
-mod lain;
-
-pub use foot::Foot;
-pub use lain::Lain;
+pub mod foot;
+pub mod lain;

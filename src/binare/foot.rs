@@ -6,8 +6,10 @@ use web_sys::{
     wasm_bindgen::JsValue,
 };
 use std::collections::HashMap;
-use crate::system::WindowLucyRoot;
-use crate::system::PropsWindowLucy;
+use crate::system::{
+    WindowLucyRoot,
+    PropsWindowLucy,
+};
 
 #[derive(Debug)]
 enum Command {
@@ -17,6 +19,11 @@ enum Command {
     Neofetch,
     Echo(String),
     Unknown(String),
+}
+
+#[derive(Properties, PartialEq, Clone)]
+pub struct PropsFoot {
+    pub pid: String,
 }
 
 fn neofetch_block() -> HashMap<String, Vec<String>> {
@@ -123,7 +130,7 @@ fn run_command(
 }
 
 #[component]
-pub fn Foot() -> Html {
+pub fn Foot(props: &PropsFoot) -> Html {
     let output_history = use_state(|| Vec::<HashMap<String, Vec<String>>>::new());
     let input_value = use_state(|| String::new());
 
@@ -138,6 +145,7 @@ pub fn Foot() -> Html {
     let window_props_terminal = yew::props! {
         PropsWindowLucy {
             name_window: "Terminal".to_string(),
+            pid: props.pid.clone(),
             style_custom: "w-[600px] z-0".to_string(),
             sub_style: "bg-black overflow-y-auto overflow-x-hidden max-h-[500px] px-2 h-full text-white",
         }
@@ -169,7 +177,6 @@ pub fn Foot() -> Html {
             input_value.set(String::new());
         })
     };
-
 
     html!{
         <WindowLucyRoot ..window_props_terminal>

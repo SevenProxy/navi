@@ -38,8 +38,6 @@ fn App() -> Html {
         }
     };
 
-
-
     html!{
         <ContextProvider<UseStateHandle<Management>> context={storage_data}>
             if *bootloader_start {

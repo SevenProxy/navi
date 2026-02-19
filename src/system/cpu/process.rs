@@ -1,8 +1,11 @@
 use yew::prelude::*;
 use std::collections::HashMap;
 use crate::binare::{
-    Foot,
-    Lain,
+    foot::{
+        Foot,
+        PropsFoot,
+    },
+    lain::Lain,
 };
 use crate::{
     Management,
@@ -28,8 +31,16 @@ pub fn Process() -> Html {
             {
                 for state.pid.iter().map(|(k,v)| {
                     match v.as_str() {
-                        "foot" => html!{
-                            <Foot key={k.clone()} />
+                        "foot" => {
+                            let foot_pid = yew::props! {
+                                PropsFoot {
+                                    pid: k.clone(),
+                                }
+                            };
+
+                            html! {
+                                <Foot key={k.clone()} ..foot_pid/>
+                            }
                         },
                         "lain" => html!{
                             <Lain key={k.clone()}/>

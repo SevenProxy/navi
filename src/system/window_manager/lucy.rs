@@ -1,9 +1,22 @@
 use yew::prelude::*;
+use web_sys::{
+    wasm_bindgen::JsCast,
+    HtmlElement,
+};
+use crate::{
+    Management,
+    system::local_storage::{
+        remove_item,
+        get_all_storage_values,
+    },
+};
 
 #[derive(Properties, PartialEq, Clone)]
 pub struct PropsWindowLucy {
     #[prop_or_default]
     pub children: Children,
+
+    pub pid: String,
 
     pub name_window: String,
 
@@ -17,6 +30,23 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
     let position = use_state(|| (100, 100));
     let dragging = use_state(|| false);
     let last_mouse = use_state(|| (0, 0));
+    let state = use_context::<UseStateHandle<Management>>().expect("No ctx found.");
+
+    let on_close = {
+        let props = props.clone();
+        let storage_data = state.clone();
+
+        Callback::from(move |e: MouseEvent| {
+            e.prevent_default();
+
+            let pid = props.pid.clone();
+            remove_item(pid.as_str());
+
+            storage_data.set(Management {
+                pid: get_all_storage_values(),
+            });
+        })
+    };
 
     let on_mousedown = {
         let dragging = dragging.clone();
@@ -77,7 +107,7 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
                     <p class="whitespace-nowrap">{"[ "} {&props.name_window} {" ]"}</p>
                     <span class="h-2 w-full bg-pink-600"/>
                 </div>
-                <button class="w-[50px] h-[25px] border-[7px] border-solid border-pink-600 bg-pink-300">
+                <button onclick={on_close} class="w-[50px] h-[25px] border-[7px] border-solid border-pink-600 bg-pink-300">
                 </button>
             </div>
             <div class={&props.sub_style}>
