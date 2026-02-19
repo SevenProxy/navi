@@ -5,7 +5,10 @@ use crate::binare::{
         Foot,
         PropsFoot,
     },
-    lain::Lain,
+    lain::{
+        Lain,
+        PropsLain,
+    },
 };
 use crate::{
     Management,
@@ -42,8 +45,16 @@ pub fn Process() -> Html {
                                 <Foot key={k.clone()} ..foot_pid/>
                             }
                         },
-                        "lain" => html!{
-                            <Lain key={k.clone()}/>
+                        "lain" => {
+                            let lain_pid = yew::props! {
+                                PropsLain {
+                                    pid: k.clone(),
+                                }
+                            };
+            
+                            html! {
+                                <Lain key={k.clone()} ..lain_pid/>
+                            }
                         },
                         _ => html! { <></> }
                     }

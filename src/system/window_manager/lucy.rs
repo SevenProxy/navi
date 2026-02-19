@@ -98,13 +98,13 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
             style={style}
         >
             <div class="h-[30px] bg-pink-300 cursor-move flex items-center justify-between gap-2 py-2 px-2" onmousedown={on_mousedown}>
-                <div class="flex items-center gap-2">
+                /*<div class="flex items-center gap-2">
                     <span class="h-[25px] w-[25px] border-[7px] border-solid border-pink-600 bg-pink-300"/>
                     <span class="h-[25px] w-[25px] border-[7px] border-solid border-pink-600 bg-pink-300"/>
-                </div>
+                </div>*/
                 <div class="flex items-center justify-between gap-2 w-full">
                     <span class="h-2 w-full bg-pink-600"/>
-                    <p class="whitespace-nowrap">{"[ "} {&props.name_window} {" ]"}</p>
+                    <p class="whitespace-nowrap">{"[ "} {&props.name_window} {format!("@{}", &props.pid)} {" ]"}</p>
                     <span class="h-2 w-full bg-pink-600"/>
                 </div>
                 <button onclick={on_close} class="w-[50px] h-[25px] border-[7px] border-solid border-pink-600 bg-pink-300">
