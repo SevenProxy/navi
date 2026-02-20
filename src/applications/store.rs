@@ -1,0 +1,43 @@
+use yew::prelude::*;
+
+#[derive(Clone)]
+pub struct DesktopApps {
+    pub name: String,
+    pub icon: String,
+}
+
+#[derive(Clone)]
+pub struct StartMenuSelect {
+    pub name: String,
+    pub icon: Html,
+}
+
+pub fn get_apps() -> Vec<DesktopApps> {
+    let applications_list = vec![
+        DesktopApps {
+            name: "foot".to_string(),
+            icon: "https://cdn.terminaltrove.com/m/8edf284d-5ce4-4d52-ab31-350866aaa79e.png".to_string(),
+        },
+        DesktopApps {
+            name: "lain".to_string(),
+            icon: "https://cdn.pfps.gg/pfps/3898-serial-experiments-lain-icon.png".to_string(),
+        },
+    ];
+
+    applications_list
+}
+
+pub fn get_menu_select() -> Vec<StartMenuSelect> {
+    let menu_list = vec![
+        StartMenuSelect {
+            name: "Applications".to_string(),
+            icon: html!{
+                <svg fill="currentColor" class="bi bi-terminal-fill w-4 h-4 text-black" viewBox="0 0 16 16">
+                    <path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1m-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5z"/>
+                </svg>
+            },
+        },
+    ];
+
+    menu_list
+}

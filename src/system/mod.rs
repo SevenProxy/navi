@@ -1,6 +1,7 @@
 mod cpu;
 mod desktop_environment;
 mod window_manager;
+mod waybar;
 
 pub mod local_storage;
 
@@ -10,3 +11,4 @@ pub use window_manager::{
     PropsWindowLucy,
     WindowLucyRoot,
 };
+pub use waybar::Waybar;

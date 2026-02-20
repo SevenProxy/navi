@@ -10,32 +10,14 @@ use crate::{
         set_item,
         get_all_storage_values,
     },
+    applications::{
+        get_apps,
+    },
 };
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub children: Html,
-}
-
-#[derive(Clone)]
-struct DesktopApps {
-    name: String,
-    icon: String,
-}
-
-fn get_apps() -> Vec<DesktopApps> {
-    let applications_list = vec![
-        DesktopApps {
-            name: "foot".to_string(),
-            icon: "https://cdn.terminaltrove.com/m/8edf284d-5ce4-4d52-ab31-350866aaa79e.png".to_string(),
-        },
-        DesktopApps {
-            name: "lain".to_string(),
-            icon: "https://cdn.pfps.gg/pfps/3898-serial-experiments-lain-icon.png".to_string(),
-        },
-    ];
-
-    applications_list
 }
 
 #[component]

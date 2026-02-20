@@ -2,20 +2,17 @@ mod components;
 mod bootloader;
 mod system;
 mod binare;
+mod applications;
 
 use yew::prelude::*;
 use std::collections::HashMap;
-
 use bootloader::{
     StartRoot,
     PropsStart,
 };
-use components::{
-    header::HeaderRoot,
-    navbar::NavbarRoot,
-};
-
+use components::navbar::NavbarRoot;
 use system::{
+    Waybar,
     Process,
     Desktop,
 };
@@ -45,7 +42,7 @@ fn App() -> Html {
             } else {
                 <div class="bg-black h-screen overflow-hidden">
                     <div class="h-full">
-                        <HeaderRoot />
+                        <Waybar />
                         <main class="h-full">
                             <Desktop>
                                 <Process/>
