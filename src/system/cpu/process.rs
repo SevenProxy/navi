@@ -51,7 +51,7 @@ pub fn Process() -> Html {
                                     pid: k.clone(),
                                 }
                             };
-            
+
                             html! {
                                 <Lain key={k.clone()} ..lain_pid/>
                             }
