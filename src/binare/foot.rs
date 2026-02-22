@@ -181,7 +181,6 @@ pub fn Foot(props: &PropsFoot) -> Html {
     html!{
         <WindowLucyRoot ..window_props_terminal>
             <div>
-
                 <div>
                     { for output_history.iter().flat_map(|m| {
                         m.iter().map(|(cmd, r)| html! {

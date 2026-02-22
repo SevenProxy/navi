@@ -5,6 +5,7 @@ use web_sys::{
 };
 use crate::{
     Management,
+    software::LocalSoftware,
     system::local_storage::{
         remove_item,
         get_all_storage_values,
@@ -32,21 +33,7 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
     let last_mouse = use_state(|| (0, 0));
     let state = use_context::<UseStateHandle<Management>>().expect("No ctx found.");
 
-    let on_close = {
-        let props = props.clone();
-        let storage_data = state.clone();
-
-        Callback::from(move |e: MouseEvent| {
-            e.prevent_default();
-
-            let pid = props.pid.clone();
-            remove_item(pid.as_str());
-
-            storage_data.set(Management {
-                pid: get_all_storage_values(),
-            });
-        })
-    };
+    let on_close = LocalSoftware::close(state.clone(), props.pid.clone());
 
     let on_mousedown = {
         let dragging = dragging.clone();

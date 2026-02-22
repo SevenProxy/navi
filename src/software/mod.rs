@@ -1,7 +1,7 @@
-mod store;
+mod installed;
 mod local;
 
-pub use store::{
+pub use installed::{
     TypeSoftware,
     Software,
     get_software,

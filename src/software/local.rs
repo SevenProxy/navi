@@ -7,6 +7,7 @@ use js_sys::Math;
 use crate::{
     Management,
     system::local_storage::{
+        remove_item,
         set_item,
         get_all_storage_values,
     },
@@ -35,6 +36,18 @@ impl LocalSoftware {
                     pid: get_all_storage_values(),
                 });
             }
+        })
+    }
+
+    pub fn close(state: UseStateHandle<Management>, pid: String) -> yew::Callback<yew::MouseEvent> {
+        Callback::from(move |e: MouseEvent| {
+            e.prevent_default();
+
+            remove_item(pid.as_str());
+
+            state.set(Management {
+                pid: get_all_storage_values(),
+            });
         })
     }
 }
