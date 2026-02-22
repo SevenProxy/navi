@@ -2,7 +2,7 @@ mod components;
 mod bootloader;
 mod system;
 mod binare;
-mod applications;
+mod software;
 
 use yew::prelude::*;
 use std::collections::HashMap;

@@ -566,8 +566,8 @@ video {
   position: relative;
 }
 
-.-right-\[90px\] {
-  right: -90px;
+.-right-\[95px\] {
+  right: -95px;
 }
 
 .bottom-1 {
@@ -584,10 +584,6 @@ video {
 
 .top-8 {
   top: 2rem;
-}
-
-.-right-\[95px\] {
-  right: -95px;
 }
 
 .z-0 {
