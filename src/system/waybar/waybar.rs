@@ -42,7 +42,11 @@ pub fn Waybar() -> Html {
                 .unwrap();
 
             if let Some(v) = element.get_attribute("value") {
-                current.set(v);
+                if (*current).clone() == v {
+                    current.set("".to_string());
+                } else {
+                    current.set(v);
+                }
             }
         })
     };
