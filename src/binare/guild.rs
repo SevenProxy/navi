@@ -22,7 +22,7 @@ pub fn Guild(props: &PropsGuild) -> Html {
 
     html! {
         <WindowLucyRoot ..window_guild_props>
-            <div class="py-2 px-2">
+            <div class="bg-black py-2 px-2">
                 <div class="mb-2">
                     <img class="w-full max-2-[400px] h-[200px]" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3BkZnZmajFwNHhlYjIxenF0cTc4dGhmZXh0dWF6cWxoYWdkd3MwYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kqGp0mQGvdsg2MEiEr/giphy.gif" />
                 </div>

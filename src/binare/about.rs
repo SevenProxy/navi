@@ -28,7 +28,7 @@ pub fn About(props: &PropsAbout) -> Html {
 
     html! {
         <WindowLucyRoot ..window_props_about>
-            <div class="flex items-center justify-center text-center">
+            <div class="bg-black flex items-center justify-center text-center">
                 <div class="py-2 px-2">
                     <div>
                         <h1 class="text-3xl underline font-about">{"ABOUT"}</h1>
