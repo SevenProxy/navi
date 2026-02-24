@@ -13,6 +13,10 @@ use crate::binare::{
         About,
         PropsAbout,
     },
+    guild::{
+        Guild,
+        PropsGuild,
+    },
 };
 use crate::{
     Management,
@@ -71,6 +75,17 @@ pub fn Process() -> Html {
                                 <About key={k.clone()} ..about_pid/>
                             }
                         },
+                        "guild" => {
+                            let guild_pid = yew::props! {
+                                PropsGuild {
+                                    pid: k.clone(),
+                                }
+                            };
+
+                            html! {
+                                <Guild key={k.clone()} ..guild_pid/>
+                            }
+                        }
                         _ => html! { <></> }
                     }
                 })

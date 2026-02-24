@@ -43,6 +43,12 @@ pub fn get_software() -> Vec<Software> {
             type_soft: TypeSoftware::Tools,
             shortcut: "$b/about".to_string(),
         },
+        Software {
+            name: "guild".to_string(),
+            icon: "".to_string(),
+            type_soft: TypeSoftware::Tools,
+            shortcut: "$b/guild".to_string(),
+        },
     ];
 
     applications_list

@@ -645,6 +645,10 @@ video {
   height: 1rem;
 }
 
+.h-\[150px\] {
+  height: 150px;
+}
+
 .h-\[25px\] {
   height: 25px;
 }
@@ -668,6 +672,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[200px\] {
+  height: 200px;
 }
 
 .max-h-\[30px\] {
@@ -929,6 +937,11 @@ video {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
 }
 
 .text-green-600 {

@@ -99,8 +99,8 @@ pub fn Waybar() -> Html {
                 <nav class="py-2">
                     <ul class="text-base font-bold flex items-center gap-5">
                         <button class="bg-none border-0">{"Status"}</button>
-                        <button class="bg-none border-0">{"Discord"}</button>
-                        <button name="about" onclick={local} class="bg-none border-0">{"About"}</button>
+                        <button name="guild" onclick={&local} class="bg-none border-0">{"Discord"}</button>
+                        <button name="about" onclick={&local} class="bg-none border-0">{"About"}</button>
                     </ul>
                 </nav>
             </div>
