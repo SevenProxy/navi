@@ -37,19 +37,12 @@ pub fn get_software() -> Vec<Software> {
             type_soft: TypeSoftware::Application,
             shortcut: "$b/lain".to_string(),
         },
-        Software {
-            name: "lain2".to_string(),
-            icon: "".to_string(),
-            type_soft: TypeSoftware::Tools,
-            shortcut: "".to_string(),
-        }
     ];
 
     applications_list
 }
 
 pub fn get_menu_select() -> Vec<StartMenuSelect> {
-
     let menu_list = vec![
         StartMenuSelect {
             name: "Tools".to_string(),
