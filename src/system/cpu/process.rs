@@ -9,6 +9,10 @@ use crate::binare::{
         Lain,
         PropsLain,
     },
+    about::{
+        About,
+        PropsAbout,
+    },
 };
 use crate::{
     Management,
@@ -54,6 +58,17 @@ pub fn Process() -> Html {
 
                             html! {
                                 <Lain key={k.clone()} ..lain_pid/>
+                            }
+                        },
+                        "about" => {
+                            let about_pid = yew::props! {
+                                PropsAbout {
+                                    pid: k.clone(),
+                                }
+                            };
+
+                            html! {
+                                <About key={k.clone()} ..about_pid/>
                             }
                         },
                         _ => html! { <></> }
