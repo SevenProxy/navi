@@ -91,7 +91,7 @@ pub fn Waybar() -> Html {
             <div class="bg-pink-300 text-black flex items-center relative justify-start gap-2 max-h-[30px]">
                 <div class="py-0 flex items-center justify-center">
                     <button onclick={&onclick_start} class="border-0">
-                        <img class="w-[70px] max-h-[30px]" src="https://fauux.neocities.org/FloatingScreen.gif" />
+                        <img class="w-[70px] max-h-[30px]" src="public/img/start_menu.gif" />
                     </button>
                 </div>
                 <nav class="py-2">
