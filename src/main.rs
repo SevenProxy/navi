@@ -43,7 +43,7 @@ fn App() -> Html {
                 <div class="bg-black h-screen overflow-hidden">
                     <div class="h-full">
                         <Waybar />
-                        <main class="h-full">
+                        <main class="h-full wallpapper">
                             <Desktop>
                                 <Process/>
                             </Desktop>

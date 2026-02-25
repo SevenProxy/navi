@@ -714,10 +714,6 @@ video {
   width: 2px;
 }
 
-.w-\[50px\] {
-  width: 50px;
-}
-
 .w-\[600px\] {
   width: 600px;
 }
@@ -1011,4 +1007,11 @@ video {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.wallpapper {
+  background-image: url("https://wallpapers.com/images/hd/serial-experiments-lain-8wdbo9ohnyh74g0i.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

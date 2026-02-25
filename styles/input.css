@@ -8,3 +8,11 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+
+.wallpapper {
+  background-image: url("https://wallpapers.com/images/hd/serial-experiments-lain-8wdbo9ohnyh74g0i.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
