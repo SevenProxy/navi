@@ -59,7 +59,7 @@ pub fn get_menu_select() -> Vec<StartMenuSelect> {
         StartMenuSelect {
             name: "Tools".to_string(),
             icon: html!{},
-            select: get_type_sotf(TypeSoftware::Tools),
+            select: get_type_soft(TypeSoftware::Tools),
         },
         StartMenuSelect {
             name: "Applications".to_string(),
@@ -68,14 +68,14 @@ pub fn get_menu_select() -> Vec<StartMenuSelect> {
                     <path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1m-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5z"/>
                 </svg>
             },
-            select: get_type_sotf(TypeSoftware::Application),
+            select: get_type_soft(TypeSoftware::Application),
         },
     ];
 
     menu_list
 }
 
-fn get_type_sotf(t: TypeSoftware) -> Vec<Software> {
+fn get_type_soft(t: TypeSoftware) -> Vec<Software> {
     let mut result_soft = Vec::<Software>::new();
 
     for soft in get_software() {

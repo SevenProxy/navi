@@ -10,6 +10,7 @@ use crate::system::{
     WindowLucyRoot,
     PropsWindowLucy,
 };
+use super::PropsBinare;
 
 #[derive(Debug)]
 enum Command {
@@ -19,11 +20,6 @@ enum Command {
     Neofetch,
     Echo(String),
     Unknown(String),
-}
-
-#[derive(Properties, PartialEq, Clone)]
-pub struct PropsFoot {
-    pub pid: String,
 }
 
 fn neofetch_block() -> HashMap<String, Vec<String>> {
@@ -130,7 +126,7 @@ fn run_command(
 }
 
 #[component]
-pub fn Foot(props: &PropsFoot) -> Html {
+pub fn Foot(props: &PropsBinare) -> Html {
     let output_history = use_state(|| Vec::<HashMap<String, Vec<String>>>::new());
     let input_value = use_state(|| String::new());
 

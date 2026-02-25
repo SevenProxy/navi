@@ -1,14 +1,12 @@
 use yew::prelude::*;
-use crate::system::WindowLucyRoot;
-use crate::system::PropsWindowLucy;
-
-#[derive(Properties, PartialEq, Clone)]
-pub struct PropsLain {
-    pub pid: String,
-}
+use crate::system::{
+    PropsWindowLucy,
+    WindowLucyRoot,
+};
+use super::PropsBinare;
 
 #[component]
-pub fn Lain(props: &PropsLain) -> Html {
+pub fn Lain(props: &PropsBinare) -> Html {
     let window_props_lain = yew::props! {
         PropsWindowLucy {
             name_window: "Lain".to_string(),

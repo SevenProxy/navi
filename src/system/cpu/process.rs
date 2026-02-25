@@ -1,22 +1,11 @@
 use yew::prelude::*;
 use std::collections::HashMap;
 use crate::binare::{
-    foot::{
-        Foot,
-        PropsFoot,
-    },
-    lain::{
-        Lain,
-        PropsLain,
-    },
-    about::{
-        About,
-        PropsAbout,
-    },
-    guild::{
-        Guild,
-        PropsGuild,
-    },
+    PropsBinare,
+    foot::Foot,
+    lain::Lain,
+    about::About,
+    guild::Guild,
 };
 use crate::{
     Management,
@@ -44,7 +33,7 @@ pub fn Process() -> Html {
                     match v.as_str() {
                         "foot" => {
                             let foot_pid = yew::props! {
-                                PropsFoot {
+                                PropsBinare {
                                     pid: k.clone(),
                                 }
                             };
@@ -55,7 +44,7 @@ pub fn Process() -> Html {
                         },
                         "lain" => {
                             let lain_pid = yew::props! {
-                                PropsLain {
+                                PropsBinare {
                                     pid: k.clone(),
                                 }
                             };
@@ -66,7 +55,7 @@ pub fn Process() -> Html {
                         },
                         "about" => {
                             let about_pid = yew::props! {
-                                PropsAbout {
+                                PropsBinare {
                                     pid: k.clone(),
                                 }
                             };
@@ -77,7 +66,7 @@ pub fn Process() -> Html {
                         },
                         "guild" => {
                             let guild_pid = yew::props! {
-                                PropsGuild {
+                                PropsBinare {
                                     pid: k.clone(),
                                 }
                             };

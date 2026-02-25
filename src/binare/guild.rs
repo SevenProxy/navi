@@ -3,14 +3,10 @@ use crate::system::{
     WindowLucyRoot,
     PropsWindowLucy,
 };
-
-#[derive(Properties, PartialEq, Clone)]
-pub struct PropsGuild {
-    pub pid: String,
-}
+use super::PropsBinare;
 
 #[component]
-pub fn Guild(props: &PropsGuild) -> Html {
+pub fn Guild(props: &PropsBinare) -> Html {
     let window_guild_props = yew::props! {
         PropsWindowLucy {
             name_window: "Discord".to_string(),

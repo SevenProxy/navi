@@ -7,14 +7,10 @@ use crate::{
         PropsWindowLucy,
     },
 };
-
-#[derive(Properties, PartialEq, Clone)]
-pub struct PropsAbout {
-    pub pid: String,
-}
+use super::PropsBinare;
 
 #[component]
-pub fn About(props: &PropsAbout) -> Html {
+pub fn About(props: &PropsBinare) -> Html {
     let state = use_context::<UseStateHandle<Management>>().expect("No ctx foud");
     let window_props_about = yew::props! {
         PropsWindowLucy {
