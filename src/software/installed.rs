@@ -53,7 +53,7 @@ pub fn get_software() -> Vec<Software> {
         },
         Software {
             name: "lain_music".to_string(),
-            icon: "".to_string(),
+            icon: "public/img/lain_music.jpg".to_string(),
             type_soft: TypeSoftware::Application,
             shortcut: "$b/lain_music".to_string(),
         },
