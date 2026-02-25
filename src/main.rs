@@ -37,7 +37,7 @@ fn App() -> Html {
 
     html!{
         <ContextProvider<UseStateHandle<Management>> context={storage_data}>
-            if false {
+            if *bootloader_start {
                 <StartRoot ..props_start/>
             } else {
                 <div class="bg-black h-screen overflow-hidden">

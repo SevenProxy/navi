@@ -22,10 +22,7 @@ pub fn Waybar() -> Html {
         let current = window_start.clone();
 
         Callback::from(move |_| {
-            match (*current).clone() {
-                true => current.set(false),
-                false => current.set(true),
-            }
+            current.set(!*current);
         })
     };
 
@@ -35,17 +32,18 @@ pub fn Waybar() -> Html {
         Callback::from(move |e: MouseEvent| {
             e.prevent_default();
 
-            let element = e
-                .target()
-                .unwrap()
-                .dyn_into::<HtmlElement>()
-                .unwrap();
+            if let Some(element) = e.target() {
+                let element_current = element.dyn_into::<HtmlElement>();
 
-            if let Some(v) = element.get_attribute("value") {
-                if (*current).clone() == v {
-                    current.set("".to_string());
-                } else {
-                    current.set(v);
+                match element_current {
+                    Ok(t) => if let Some(v) = t.get_attribute("value") {
+                        if (*current) == v {
+                            current.set("".to_string());
+                        } else {
+                            current.set(v);
+                        }
+                    },
+                    Err(_) => {}
                 }
             }
         })

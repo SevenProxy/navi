@@ -25,16 +25,14 @@ impl LocalSoftware {
                 let current = element.dyn_into::<HtmlElement>();
 
                 match current {
-                    Ok(t) => {
-                        if let Some(v) = t.get_attribute("name") {
-                            let random_pid = (Math::random() * 99999 as f64) as usize;
-                            let current = random_pid.to_string();
+                    Ok(t) => if let Some(v) = t.get_attribute("name") {
+                        let random_pid = (Math::random() * 99999 as f64) as usize;
+                        let current = random_pid.to_string();
 
-                            set_item(current.as_str(), v.as_str());
-                            state.set(Management {
-                                pid: get_all_storage_values(),
-                            });
-                        }
+                        set_item(current.as_str(), v.as_str());
+                        state.set(Management {
+                            pid: get_all_storage_values(),
+                        });
                     },
 
                     Err(_) => {}
