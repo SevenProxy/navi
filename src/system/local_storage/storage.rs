@@ -1,3 +1,5 @@
+#![allow(warnings)]
+
 use std::collections::HashMap;
 use web_sys::{
     window,
@@ -16,28 +18,37 @@ fn get_local_storage() -> Storage {
 pub fn set_item(key: &str, value: &str) {
     let storage = get_local_storage();
 
-    storage.set_item(key, value).unwrap();
+    storage.set_item(key, value);
 }
-
 
 pub fn get_item(key: &str) -> Option<String> {
     let storage = get_local_storage();
 
-    storage.get_item(key).unwrap()
+    if let Ok(t) = storage.get_item(key) {
+        return match t {
+            Some(text) => Some(text),
+            None => None,
+        }
+    }
+
+    None
 }
 
 
 pub fn remove_item(key: &str) {
     let storage = get_local_storage();
 
-    storage.remove_item(key).unwrap();
+    storage.remove_item(key);
 }
 
 pub fn get_all_storage_values() -> HashMap<String, String> {
     let mut all_items = HashMap::new();
 
     let storage = get_local_storage();
-    let length = storage.length().unwrap_or(0);
+    let length = match storage.length() {
+        Ok(n) => n,
+        Err(_) => 0,
+    };
 
     for i in 0..length {
         if let Ok(Some(key)) = storage.key(i) {

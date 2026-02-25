@@ -21,20 +21,24 @@ impl LocalSoftware {
         Callback::from(move |e: MouseEvent| {
             e.prevent_default();
 
-            let element = e
-                .target()
-                .unwrap()
-                .dyn_into::<HtmlElement>()
-                .unwrap();
+            if let Some(element) = e.target() {
+                let current = element.dyn_into::<HtmlElement>();
 
-            if let Some(v) = element.get_attribute("name") {
-                let random_pid = (Math::random() * 99999 as f64) as usize;
-                let current = random_pid.to_string();
+                match current {
+                    Ok(t) => {
+                        if let Some(v) = t.get_attribute("name") {
+                            let random_pid = (Math::random() * 99999 as f64) as usize;
+                            let current = random_pid.to_string();
 
-                set_item(current.as_str(), v.as_str());
-                state.set(Management {
-                    pid: get_all_storage_values(),
-                });
+                            set_item(current.as_str(), v.as_str());
+                            state.set(Management {
+                                pid: get_all_storage_values(),
+                            });
+                        }
+                    },
+
+                    Err(_) => {}
+                }
             }
         })
     }
