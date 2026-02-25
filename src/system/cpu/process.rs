@@ -6,6 +6,7 @@ use crate::binare::{
     lain::Lain,
     about::About,
     guild::Guild,
+    lain_music::LainMusic,
 };
 use crate::{
     Management,
@@ -73,6 +74,17 @@ pub fn Process() -> Html {
 
                             html! {
                                 <Guild key={k.clone()} ..guild_pid/>
+                            }
+                        },
+                        "lain_music" => {
+                            let lain_music = yew::props! {
+                                PropsBinare {
+                                    pid: k.clone(),
+                                }
+                            };
+
+                            html! {
+                                <LainMusic key={k.clone()} ..lain_music/>
                             }
                         }
                         _ => html! { <></> }
