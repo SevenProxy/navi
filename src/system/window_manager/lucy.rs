@@ -94,8 +94,7 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
                     <p class="whitespace-nowrap">{"[ "} {&props.name_window} {format!("@{}", &props.pid)} {" ]"}</p>
                     <span class="h-2 w-full bg-pink-600"/>
                 </div>
-                <button onclick={on_close} class="w-[50px] h-[25px] border-[7px] border-solid border-pink-600 bg-pink-300">
-                </button>
+                <button onclick={on_close} class="text-3xl font-bold flex items-center justify-center text-center h-[25px] text-pink-700">{"/"}</button>
             </div>
             <div class={&props.sub_style}>
                 { for props.children.iter() }
