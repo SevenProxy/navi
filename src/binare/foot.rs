@@ -1,10 +1,5 @@
 use yew::prelude::*;
-use web_sys::{
-    HtmlInputElement,
-    KeyboardEvent,
-    console,
-    wasm_bindgen::JsValue,
-};
+use web_sys::HtmlInputElement;
 use std::collections::HashMap;
 use crate::system::{
     WindowLucyRoot,
@@ -14,6 +9,8 @@ use super::PropsBinare;
 
 #[derive(Debug)]
 enum Command {
+    Ls,
+    Cat(String),
     Clear,
     Whoami,
     Help,
@@ -61,6 +58,11 @@ fn parse_command(input: &str) -> Command {
     let cmd = parts.next();
 
     match cmd {
+        Some("ls") => Command::Ls,
+        Some("cat") => {
+            let reset = parts.collect::<Vec<_>>().join(" ");
+            Command::Cat(reset)
+        },
         Some("clear") => Command::Clear,
         Some("whoami") => Command::Whoami,
         Some("help") => Command::Help,
@@ -80,6 +82,30 @@ fn run_command(
 ) {
 
     match cmd {
+        Command::Ls => {
+            let mut new_blocks = (*lines).clone();
+
+            let mut block = HashMap::new();
+            block.insert("ls".into(), vec!["@Proxy README.md".into()]);
+
+            new_blocks.push(block);
+            lines.set(new_blocks);
+        }
+
+        Command::Cat(txt) => {
+            let mut new_blocks = (*lines).clone();
+
+            let mut block = HashMap::new();
+            if txt == "README.md".to_string() {
+                block.insert("cat".into(), vec![format!("{}", &txt)]);
+            } else {
+                block.insert("cat".into(), vec!["Arquivo não encontrado".into()]);
+            }
+
+            new_blocks.push(block);
+            lines.set(new_blocks);
+        }
+
         Command::Clear => {
             lines.set(Vec::new());
         }
@@ -120,7 +146,19 @@ fn run_command(
             lines.set(new_blocks);
         }
 
-        Command::Help => todo!(),
+        Command::Help => {
+            let mut new_blocks = (*lines).clone();
+
+            let mut block = HashMap::new();
+            block.insert("help".into(), vec![
+                format!("{}", "Sei lá moxefi".to_string()),
+                format!("{}", "Ainda tenho que termianr essa porra.".to_string())
+            ]);
+
+            new_blocks.push(block);
+            lines.set(new_blocks);
+        },
+
 
     }
 }
