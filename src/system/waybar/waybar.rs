@@ -70,7 +70,7 @@ pub fn Waybar() -> Html {
                                     </svg>
                                     <button value={v.name.clone()} onclick={onclick_selct.clone()} class="absolute top-0 left-0 w-full h-full"></button>
                                     if *menu_software == &*v.name {
-                                        <div class="absolute -right-[95px] top-0 z-40 bg-pink-300 py-2 px-4">
+                                        <div class="max-w-[200px] min-w-[200px] overflow-hidden absolute -right-[210px] top-0 z-40 bg-pink-300 py-2 px-4">
                                             <ul class="flex flex-col items-start gap-2">
                                                 { for v.select.iter().map(|v| html! {
                                                     <li class="flex items-center gap-2 relative" key={v.name.clone()}>
