@@ -26,7 +26,7 @@ pub fn Desktop(props: &Props) -> Html {
                         { for get_software().iter().map(|v|
                             match v.type_soft {
                                 TypeSoftware::Application => html! {
-                                    <button class="mb-2 border-0 max-w-[50px] max-h-[50px] flex flex-col items-center text-center relative">
+                                    <button class="mb-6 border-0 max-w-[50px] max-h-[50px] flex flex-col items-center text-center relative">
                                         <button name={v.name.clone()} onclick={onclick.clone()} class="z-10 absolute top-0 left-0 w-full h-full"></button>
                                         <img class="w-full h-full" src={v.icon.clone()} alt={v.name.clone()}/>
                                         <p class="text-zinc-200">{v.name.clone()}</p>
