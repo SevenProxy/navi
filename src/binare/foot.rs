@@ -178,7 +178,7 @@ pub fn Foot(props: &PropsBinare) -> Html {
 
     let window_props_terminal = yew::props! {
         PropsWindowLucy {
-            name_window: "Terminal".to_string(),
+            name_window: "foot".to_string(),
             pid: props.pid.clone(),
             style_custom: "w-[600px] z-0".to_string(),
             sub_style: "bg-black overflow-y-auto overflow-x-hidden max-h-[500px] px-2 h-full text-white",

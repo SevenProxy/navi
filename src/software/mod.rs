@@ -3,10 +3,10 @@ mod local;
 
 pub use installed::{
     TypeSoftware,
-    Software,
+    //Software,
     get_software,
 
-    StartMenuSelect,
+    //StartMenuSelect,
     get_menu_select,
 };
 pub use local::LocalSoftware;

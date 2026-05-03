@@ -9,7 +9,7 @@ use super::PropsBinare;
 pub fn Guild(props: &PropsBinare) -> Html {
     let window_guild_props = yew::props! {
         PropsWindowLucy {
-            name_window: "Discord".to_string(),
+            name_window: "guild".to_string(),
             pid: props.pid.clone(),
             style_custom: "z-0 max-w-[400px]".to_string(),
             sub_style: "w-full h-full text-white".to_string(),

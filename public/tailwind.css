@@ -566,8 +566,8 @@ video {
   position: relative;
 }
 
-.-right-\[140px\] {
-  right: -140px;
+.-right-\[210px\] {
+  right: -210px;
 }
 
 .bottom-1 {
@@ -584,14 +584,6 @@ video {
 
 .top-8 {
   top: 2rem;
-}
-
-.-right-\[190px\] {
-  right: -190px;
-}
-
-.-right-\[210px\] {
-  right: -210px;
 }
 
 .z-0 {
@@ -694,6 +686,10 @@ video {
   max-height: 30px;
 }
 
+.max-h-\[35px\] {
+  max-height: 35px;
+}
+
 .max-h-\[40px\] {
   max-height: 40px;
 }
@@ -708,6 +704,10 @@ video {
 
 .max-h-full {
   max-height: 100%;
+}
+
+.min-h-\[40px\] {
+  min-height: 40px;
 }
 
 .w-4 {
@@ -785,10 +785,6 @@ video {
   align-items: center;
 }
 
-.justify-start {
-  justify-content: flex-start;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -841,9 +837,9 @@ video {
   border-style: solid;
 }
 
-.border-pink-300 {
+.border-\[\#707880\] {
   --tw-border-opacity: 1;
-  border-color: rgb(249 168 212 / var(--tw-border-opacity, 1));
+  border-color: rgb(112 120 128 / var(--tw-border-opacity, 1));
 }
 
 .border-pink-500 {
@@ -869,11 +865,6 @@ video {
 .bg-pink-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(236 72 153 / var(--tw-bg-opacity, 1));
-}
-
-.bg-pink-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(219 39 119 / var(--tw-bg-opacity, 1));
 }
 
 .bg-red-600 {
@@ -942,6 +933,11 @@ video {
   line-height: 1.75rem;
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -961,19 +957,9 @@ video {
   color: rgb(22 163 74 / var(--tw-text-opacity, 1));
 }
 
-.text-pink-300 {
-  --tw-text-opacity: 1;
-  color: rgb(249 168 212 / var(--tw-text-opacity, 1));
-}
-
 .text-pink-600 {
   --tw-text-opacity: 1;
   color: rgb(219 39 119 / var(--tw-text-opacity, 1));
-}
-
-.text-pink-700 {
-  --tw-text-opacity: 1;
-  color: rgb(190 24 93 / var(--tw-text-opacity, 1));
 }
 
 .text-pink-800 {
@@ -1022,4 +1008,16 @@ video {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.sway-color-border {
+  border: 1px solid #707880;
+}
+
+.sway-color {
+  color: #707880;
+}
+
+.sway-color-bg {
+  background: #707880;
 }

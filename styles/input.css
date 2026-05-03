@@ -16,3 +16,15 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.sway-color-border {
+	border: 1px solid #707880;
+}
+
+.sway-color {
+	color: #707880;
+}
+
+.sway-color-bg {
+	background: #707880;
+}

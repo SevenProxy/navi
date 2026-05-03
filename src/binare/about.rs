@@ -14,7 +14,7 @@ pub fn About(props: &PropsBinare) -> Html {
     let state = use_context::<UseStateHandle<Management>>().expect("No ctx foud");
     let window_props_about = yew::props! {
         PropsWindowLucy {
-            name_window: "About".to_string(),
+            name_window: "about".to_string(),
             pid: props.pid.clone(),
             style_custom: "z-0 max-w-[400px]".to_string(),
             sub_style: "w-full h-full text-white".to_string(),

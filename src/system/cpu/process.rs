@@ -1,5 +1,4 @@
 use yew::prelude::*;
-use std::collections::HashMap;
 use crate::binare::{
     PropsBinare,
     foot::Foot,
@@ -22,6 +21,7 @@ pub fn Process() -> Html {
         use_effect_with((), move |_| {
             storage_data.set( Management {
                 pid: get_all_storage_values(),
+                soft_current: None,
             });
             || ()
         });

@@ -32,6 +32,7 @@ impl LocalSoftware {
                         set_item(current.as_str(), v.as_str());
                         state.set(Management {
                             pid: get_all_storage_values(),
+                            soft_current: Some(v),
                         });
                     },
 
@@ -49,6 +50,7 @@ impl LocalSoftware {
 
             state.set(Management {
                 pid: get_all_storage_values(),
+                soft_current: None,
             });
         })
     }

@@ -6,7 +6,7 @@ use yew::prelude::*;
 pub enum TypeSoftware {
     Application,
     Tools,
-    Internet,
+    //Internet,
 }
 
 #[derive(Clone)]
@@ -14,7 +14,7 @@ pub struct Software {
     pub name: String,
     pub icon: String,
     pub type_soft: TypeSoftware,
-    pub shortcut: String,
+    //pub shortcut: String,
 }
 
 
@@ -31,31 +31,31 @@ pub fn get_software() -> Vec<Software> {
             name: "foot".to_string(),
             icon: "public/img/foot.png".to_string(),
             type_soft: TypeSoftware::Application,
-            shortcut: "$b/foot".to_string(),
+            //shortcut: "$b/foot".to_string(),
         },
         Software {
             name: "lain".to_string(),
             icon: "public/img/lain.jpg".to_string(),
             type_soft: TypeSoftware::Application,
-            shortcut: "$b/lain".to_string(),
+            //shortcut: "$b/lain".to_string(),
         },
         Software {
             name: "about".to_string(),
             icon: "".to_string(),
             type_soft: TypeSoftware::Tools,
-            shortcut: "$b/about".to_string(),
+            //shortcut: "$b/about".to_string(),
         },
         Software {
             name: "guild".to_string(),
             icon: "".to_string(),
             type_soft: TypeSoftware::Tools,
-            shortcut: "$b/guild".to_string(),
+            //shortcut: "$b/guild".to_string(),
         },
         Software {
             name: "lain_music".to_string(),
             icon: "public/img/lain_music.jpg".to_string(),
             type_soft: TypeSoftware::Application,
-            shortcut: "$b/lain_music".to_string(),
+            //shortcut: "$b/lain_music".to_string(),
         },
     ];
 

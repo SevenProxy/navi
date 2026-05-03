@@ -9,7 +9,7 @@ use super::PropsBinare;
 pub fn Lain(props: &PropsBinare) -> Html {
     let window_props_lain = yew::props! {
         PropsWindowLucy {
-            name_window: "Lain".to_string(),
+            name_window: "lain".to_string(),
             pid: props.pid.clone(),
             style_custom: "max-w-[300px] max-h-[300px] z-0".to_string(),
             sub_style: "w-full h-full text-white".to_string(),

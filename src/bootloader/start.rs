@@ -9,11 +9,13 @@ enum TypeLog {
     Null,
 }
 
+#[allow(dead_code)]
 enum BootAction {
     Push(BootLine),
     Clear,
 }
 
+#[allow(dead_code)]
 enum StartedLog {
     Ok(String),
     Falied(String),

@@ -20,6 +20,7 @@ use system::{
 #[derive(Clone, PartialEq)]
 struct Management {
     pub pid: HashMap<String, String>,
+    pub soft_current: Option<String>,
 }
 
 #[component]
@@ -27,6 +28,7 @@ fn App() -> Html {
     let bootloader_start = use_state(|| true);
     let storage_data = use_state(|| Management {
         pid: HashMap::new(),
+        soft_current: None,
     });
 
     let props_start = yew::props! {

@@ -1,4 +1,4 @@
-#![allow(warnings)]
+#![allow(dead_code)]
 
 use std::collections::HashMap;
 use web_sys::{
@@ -18,17 +18,14 @@ fn get_local_storage() -> Storage {
 pub fn set_item(key: &str, value: &str) {
     let storage = get_local_storage();
 
-    storage.set_item(key, value);
+    let _ = storage.set_item(key, value);
 }
 
 pub fn get_item(key: &str) -> Option<String> {
     let storage = get_local_storage();
 
     if let Ok(t) = storage.get_item(key) {
-        return match t {
-            Some(text) => Some(text),
-            None => None,
-        }
+        return t
     }
 
     None
@@ -38,7 +35,7 @@ pub fn get_item(key: &str) -> Option<String> {
 pub fn remove_item(key: &str) {
     let storage = get_local_storage();
 
-    storage.remove_item(key);
+    let _ = storage.remove_item(key);
 }
 
 pub fn get_all_storage_values() -> HashMap<String, String> {
