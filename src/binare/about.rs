@@ -30,7 +30,7 @@ pub fn About(props: &PropsBinare) -> Html {
                         <h1 class="text-3xl underline font-about">{"ABOUT"}</h1>
                     </div>
                     <div class="my-2">
-                        <p>{"O projeto tem licença MIT e GNU. O projeto se encontra no github, não vou por o link aqui, cabe a você procurar ele, não sou seu seus país para dar tudo na sua mão."}</p>
+                        <p>{"O projeto tem licença MIT e GNU. O projeto se encontra no github, não vou por o link aqui cabe a você procurar ele, pois não sou seu seus pais para dar tudo na sua mão."}</p>
                         <p>{"Esse projeto é algo talvez para estudo, mas também para testar tecnologias poucos usadas como webassembly. Quero ver ate onde vou com isso."}</p>
                         <p>
                             {"A ideia inicial era fazer um gerenciador de servidores com a interface de um sistema operacional, algo minimamente criativo kkk, mas acabou sendo isso... talvez futuramente eu faça o que quero, "}
