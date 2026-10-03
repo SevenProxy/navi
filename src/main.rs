@@ -10,6 +10,7 @@ use bootloader::{
     StartRoot,
     PropsStart,
 };
+
 use components::navbar::NavbarRoot;
 use system::{
     Waybar,

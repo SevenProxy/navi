@@ -30,12 +30,7 @@ pub fn About(props: &PropsBinare) -> Html {
                         <h1 class="text-3xl underline font-about">{"ABOUT"}</h1>
                     </div>
                     <div class="my-2">
-                        <p>{"O projeto tem licença MIT e GNU. O projeto se encontra no github, não vou por o link aqui cabe a você procurar ele, pois não sou seu seus pais para dar tudo na sua mão."}</p>
-                        <p>{"Esse projeto é algo talvez para estudo, mas também para testar tecnologias poucos usadas como webassembly. Quero ver ate onde vou com isso."}</p>
-                        <p>
-                            {"A ideia inicial era fazer um gerenciador de servidores com a interface de um sistema operacional, algo minimamente criativo kkk, mas acabou sendo isso... talvez futuramente eu faça o que quero, "}
-                            <span class="bg-pink-500">{"mas quero deixar isso ativo pra ver qual vai ser."}</span>
-                        </p>
+                        <p>{"Foda-se"}</p>
                         <button onclick={local} class="my-4 border-2 border-solid border-pink-500 text-base py-1 px-2">{"foda-se, proxy! cade as góticas"}</button>
                     </div>
                 </div>

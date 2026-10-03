@@ -23,8 +23,6 @@ pub fn LainMusic(props: &PropsBinare) -> Html {
                 <div class="py-2 px-2 text-sm">
                     <p>{"Ainda vou por mais algumas músicas minhas, mas por agora só vai ter essa :D"}</p>
                     <p>{"Se tu nao gosta de phonk problema é seu taligado"}</p>
-                    <br/>
-                    <p>{"Falando nisso, esse programa aqui vai ser tipo um \"Spotify\", se você tiver sugestões de músicas manda lá no servidor do discord. Onde eu acho? só clica no icon na barra superior ali em cima"}</p>
                 </div>
                 <audio controls={true}>
                     <source src="public/starly&jessie.mp3" type="audio/ogg"/>
