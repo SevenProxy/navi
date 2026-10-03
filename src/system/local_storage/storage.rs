@@ -42,16 +42,11 @@ pub fn get_all_storage_values() -> HashMap<String, String> {
     let mut all_items = HashMap::new();
 
     let storage = get_local_storage();
-    let length = match storage.length() {
-        Ok(n) => n,
-        Err(_) => 0,
-    };
+    let length = storage.length().unwrap_or_default();
 
     for i in 0..length {
-        if let Ok(Some(key)) = storage.key(i) {
-            if let Ok(Some(value)) = storage.get_item(&key) {
-                all_items.insert(key, value);
-            }
+        if let Ok(Some(key)) = storage.key(i) && let Ok(Some(value)) = storage.get_item(&key) {
+            all_items.insert(key, value);
         }
     }
 

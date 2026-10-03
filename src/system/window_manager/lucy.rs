@@ -82,7 +82,7 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
         position.0, position.1
     );
 
-    let class_window = format!("font-bold text-base absolute z-10 bg-back sway-color-border {}", &props.style_custom);
+    let class_window = format!("font-bold text-base absolute z-10 bg-back sway-color-border {}", props.style_custom);
 
     html!{
         <section

@@ -18,7 +18,7 @@ use crate::{
 #[component]
 pub fn Waybar() -> Html {
     let window_start = use_state(|| false);
-    let menu_software = use_state(|| String::new());
+    let menu_software = use_state(String::new);
     let memory_usage = use_state(|| 0);
     let state = use_context::<UseStateHandle<Management>>().expect("No ctx found");
     let local = LocalSoftware::execute(state.clone());
@@ -44,15 +44,12 @@ pub fn Waybar() -> Html {
             if let Some(element) = e.target() {
                 let element_current = element.dyn_into::<HtmlElement>();
 
-                match element_current {
-                    Ok(t) => if let Some(v) = t.get_attribute("value") {
-                        if (*current) == v {
-                            current.set("".to_string());
-                        } else {
-                            current.set(v);
-                        }
-                    },
-                    Err(_) => {}
+                if let Ok(t) = element_current && let Some(v) = t.get_attribute("value") {
+                    if *current == v {
+                        current.set("".to_string());
+                    } else {
+                        current.set(v);
+                    }
                 }
             }
         })
@@ -62,14 +59,12 @@ pub fn Waybar() -> Html {
         let memory_usage = memory_usage.clone();
         use_effect_with((), move |_| {
             let interval = Interval::new(1000, move || {
-                if let Some(window) = window () {
-                    if let Ok(perf) = window.performance().ok_or("no perf").map(|p| p) {
-                        let memory = js_sys::Reflect::get(&perf, &"memory".into()).unwrap();
-                        let used_heap = js_sys::Reflect::get(&memory, &"usedJSHeapSize".into()).unwrap();
-                        let mb = (used_heap.as_f64().unwrap() / 1024.0 / 1024.0) as u32;
+                if let Some(window) = window() && let Ok(perf) = window.performance().ok_or("no perf") {
+                    let memory = js_sys::Reflect::get(&perf, &"memory".into()).unwrap();
+                    let used_heap = js_sys::Reflect::get(&memory, &"usedJSHeapSize".into()).unwrap();
+                    let mb = (used_heap.as_f64().unwrap() / 1024.0 / 1024.0) as u32;
 
-                        memory_usage.set(mb);
-                    }
+                    memory_usage.set(mb);
                 }
             });
 
@@ -97,7 +92,7 @@ pub fn Waybar() -> Html {
                                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
                                     </svg>
                                     <button value={v.name.clone()} onclick={onclick_selct.clone()} class="absolute top-0 left-0 w-full h-full"></button>
-                                    if *menu_software == &*v.name {
+                                    if *menu_software == v.name {
                                         <div class="max-w-[200px] min-w-[200px] overflow-hidden absolute -right-[210px] top-0 z-40 bg-black border-2 border-solid border-[#707880] text-white py-2 px-4">
                                             <ul class="flex flex-col items-start gap-2">
                                                 { for v.select.iter().map(|v| html! {

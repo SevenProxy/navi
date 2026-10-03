@@ -101,7 +101,7 @@ fn get_type_soft() -> HashMap<TypeSoftware, Vec<Software>> {
     for soft in get_software() {
         software_types
             .entry(soft.type_soft.clone())
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(soft)
     }
 

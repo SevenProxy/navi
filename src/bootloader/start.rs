@@ -84,7 +84,7 @@ pub fn StartRoot(props: &PropsStart) -> Html {
     let states = use_reducer(|| BootState {
         lines: Vec::new(),
     });
-    let timeout_ref = use_mut_ref(|| Vec::<Timeout>::new());
+    let timeout_ref = use_mut_ref(Vec::<Timeout>::new);
 
     {
         let states = states.dispatcher();

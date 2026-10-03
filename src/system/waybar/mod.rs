@@ -1,3 +1,3 @@
-mod waybar;
+mod inner;
 
-pub use waybar::Waybar;
+pub use inner::Waybar;

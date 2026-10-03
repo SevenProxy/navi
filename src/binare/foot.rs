@@ -96,7 +96,7 @@ fn run_command(
             let mut new_blocks = (*lines).clone();
 
             let mut block = HashMap::new();
-            if txt == "README.md".to_string() {
+            if txt == "README.md" {
                 block.insert("cat".into(), vec![format!("{}", &txt)]);
             } else {
                 block.insert("cat".into(), vec!["Arquivo não encontrado".into()]);
@@ -151,8 +151,8 @@ fn run_command(
 
             let mut block = HashMap::new();
             block.insert("help".into(), vec![
-                format!("{}", "Sei lá moxefi".to_string()),
-                format!("{}", "Ainda tenho que termianr essa porra.".to_string())
+                "Sei lá moxefi".to_string(),
+                "Ainda tenho que termianr essa porra.".to_string()
             ]);
 
             new_blocks.push(block);
@@ -165,8 +165,8 @@ fn run_command(
 
 #[component]
 pub fn Foot(props: &PropsBinare) -> Html {
-    let output_history = use_state(|| Vec::<HashMap<String, Vec<String>>>::new());
-    let input_value = use_state(|| String::new());
+    let output_history = use_state(Vec::<HashMap<String, Vec<String>>>::new);
+    let input_value = use_state(String::new);
 
     {
         let blocks = output_history.clone();
@@ -205,7 +205,7 @@ pub fn Foot(props: &PropsBinare) -> Html {
                 return;
             }
 
-            let command_cli = parse_command(&input_value.as_str());
+            let command_cli = parse_command(input_value.as_str());
             run_command(command_cli, output_history.clone());
 
             input_value.set(String::new());
