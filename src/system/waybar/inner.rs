@@ -62,15 +62,14 @@ pub fn Waybar() -> Html {
         let cpu_temp = cpu_temp.clone();
         use_effect_with((), move |_| {
             let interval = Interval::new(1000, move || {
-                if let Some(window) = window() && let Ok(perf) = window.performance().ok_or("no perf") {
-                    if let Ok(memory) = js_sys::Reflect::get(&perf, &"memory".into()) {
-                        if let Ok(used_heap) = js_sys::Reflect::get(&memory, &"usedJSHeapSize".into()) {
-                            if let Some(used_heap_f64) = used_heap.as_f64() {
-                                let mb = (used_heap_f64 / 1024.0 / 1024.0) as u32;
-                                memory_usage.set(mb);
-                            }
-                        }
-                    }
+                if let Some(window) = window()
+                    && let Ok(perf) = window.performance().ok_or("no perf")
+                    && let Ok(memory) = js_sys::Reflect::get(&perf, &"memory".into())
+                    && let Ok(used_heap) = js_sys::Reflect::get(&memory, &"usedJSHeapSize".into())
+                    && let Some(used_heap_f64) = used_heap.as_f64()
+                {
+                    let mb = (used_heap_f64 / 1024.0 / 1024.0) as u32;
+                    memory_usage.set(mb);
                 }
                 // Simulate CPU temperature
                 let temp = 45 + ((js_sys::Math::random() * 15.0) as u32);

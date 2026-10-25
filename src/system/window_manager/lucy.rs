@@ -1,6 +1,5 @@
 use yew::prelude::*;
 use gloo::timers::callback::Interval;
-use web_sys::window;
 use crate::{
     Management,
     software::LocalSoftware,

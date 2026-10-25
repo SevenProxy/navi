@@ -235,24 +235,24 @@ pub fn Foot(props: &PropsBinare) -> Html {
             let command_cli = parse_command(command_str);
             
             // Handle running binaries
-            if let Command::Unknown(ref cmd) = command_cli {
-                if cmd.starts_with("RUN:") {
-                    let bin_name = cmd.trim_start_matches("RUN:").to_string();
-                    let random_pid = (Math::random() * 99999_f64) as usize;
-                    let current_pid = random_pid.to_string();
-                    set_item(current_pid.as_str(), bin_name.as_str());
-                    state.set(Management {
-                        pid: get_all_storage_values(),
-                        soft_current: Some(bin_name.clone()),
-                    });
-                    let mut new_blocks = (*output_history).clone();
-                    let mut block = HashMap::new();
-                    block.insert("exec".into(), vec![format!("Iniciando {}...", bin_name)]);
-                    new_blocks.push(block);
-                    output_history.set(new_blocks);
-                    input_value.set(String::new());
-                    return;
-                }
+            if let Command::Unknown(ref cmd) = command_cli
+                && cmd.starts_with("RUN:")
+            {
+                let bin_name = cmd.trim_start_matches("RUN:").to_string();
+                let random_pid = (Math::random() * 99999_f64) as usize;
+                let current_pid = random_pid.to_string();
+                set_item(current_pid.as_str(), bin_name.as_str());
+                state.set(Management {
+                    pid: get_all_storage_values(),
+                    soft_current: Some(bin_name.clone()),
+                });
+                let mut new_blocks = (*output_history).clone();
+                let mut block = HashMap::new();
+                block.insert("exec".into(), vec![format!("Iniciando {}...", bin_name)]);
+                new_blocks.push(block);
+                output_history.set(new_blocks);
+                input_value.set(String::new());
+                return;
             }
             
             run_command(command_cli, output_history.clone());
