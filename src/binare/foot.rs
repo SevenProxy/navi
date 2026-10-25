@@ -71,19 +71,21 @@ fn parse_command(input: &str) -> Command {
             let reset = parts.collect::<Vec<_>>().join(" ");
             Command::Cat(reset)
         },
-        Some("clear") => Command::Clear,
-        Some("whoami") => Command::Whoami,
-        Some("help") => Command::Help,
-        Some("neofetch") => Command::Neofetch,
+        Some("clear") | Some("cls") => Command::Clear,
+        Some("whoami") | Some("id") => Command::Whoami,
+        Some("help") | Some("?") => Command::Help,
+        Some("neofetch") | Some("fetch") | Some("info") => Command::Neofetch,
         Some("echo") => {
             let reset = parts.collect::<Vec<_>>().join(" ");
             Command::Echo(reset)
         },
+        Some("pwd") => Command::Unknown("pwd".to_string()),
+        Some("date") => Command::Unknown("date".to_string()),
+        Some("uname") => Command::Unknown("uname".to_string()),
         Some(other) => {
             // Check if it's an installed binary/application
             let known_bins = ["foot", "lain", "lain_music", "about", "guild", "navi"];
             if known_bins.contains(&other) {
-                // We'll handle running binaries in run_command
                 Command::Unknown(format!("RUN:{}", other))
             } else {
                 Command::Unknown(other.to_string())
@@ -152,6 +154,12 @@ fn run_command(
             } else if cmd.starts_with("RUN:") {
                 let bin_name = cmd.trim_start_matches("RUN:").to_string();
                 block.insert("exec".into(), vec![format!("Iniciando {}...", bin_name)]);
+            } else if cmd == "pwd" {
+                block.insert(cmd, vec!["/home".into()]);
+            } else if cmd == "date" {
+                block.insert(cmd, vec![chrono::Local::now().format("%a %b %d %H:%M:%S %Y").to_string()]);
+            } else if cmd == "uname" {
+                block.insert(cmd, vec!["navi 0.1.0 x86_64 GNU/Linux".into()]);
             } else {
                 block.insert(cmd.clone(), vec![format!("Comando não encontrado: {}", cmd)]);
             }
@@ -175,8 +183,19 @@ fn run_command(
 
             let mut block = HashMap::new();
             block.insert("help".into(), vec![
-                "Sei lá moxefi".to_string(),
-                "Ainda tenho que termianr essa porra.".to_string()
+                "Comandos disponíveis:".to_string(),
+                "  ls        - lista arquivos".to_string(),
+                "  cat <arq> - exibe arquivo".to_string(),
+                "  clear     - limpa tela".to_string(),
+                "  whoami    - exibe usuário".to_string(),
+                "  pwd       - diretório atual".to_string(),
+                "  date      - data e hora".to_string(),
+                "  uname     - info do sistema".to_string(),
+                "  echo <txt>- exibe texto".to_string(),
+                "  neofetch  - info do sistema".to_string(),
+                "  help      - exibe ajuda".to_string(),
+                "".to_string(),
+                "Apps: foot, lain, lain_music, about, guild".to_string(),
             ]);
 
             new_blocks.push(block);

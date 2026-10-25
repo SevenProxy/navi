@@ -6,8 +6,6 @@ use crate::binare::{
     about::About,
     guild::Guild,
     lain_music::LainMusic,
-    bin::Bin,
-    terminal::Terminal,
 };
 use crate::{
     Management,
@@ -87,28 +85,6 @@ pub fn Process() -> Html {
 
                             html! {
                                 <LainMusic key={k.clone()} ..lain_music/>
-                            }
-                        },
-                        "bin" => {
-                            let bin_props = yew::props! {
-                                PropsBinare {
-                                    pid: k.clone(),
-                                }
-                            };
-
-                            html! {
-                                <Bin key={k.clone()} ..bin_props/>
-                            }
-                        },
-                        "terminal" => {
-                            let terminal_props = yew::props! {
-                                PropsBinare {
-                                    pid: k.clone(),
-                                }
-                            };
-
-                            html! {
-                                <Terminal key={k.clone()} ..terminal_props/>
                             }
                         }
                         _ => html! { <></> }

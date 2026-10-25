@@ -57,16 +57,7 @@ pub fn get_software() -> Vec<Software> {
             type_soft: TypeSoftware::Application,
             //shortcut: "$b/lain_music".to_string(),
         },
-        Software {
-            name: "bin".to_string(),
-            icon: "public/img/foot.png".to_string(),
-            type_soft: TypeSoftware::Tools,
-        },
-        Software {
-            name: "terminal".to_string(),
-            icon: "public/img/foot.png".to_string(),
-            type_soft: TypeSoftware::Application,
-        },
+
     ];
 
     applications_list
