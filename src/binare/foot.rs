@@ -114,7 +114,7 @@ fn run_command(
 
             let mut block = HashMap::new();
             if txt == "README.md" {
-                block.insert("cat".into(), vec![format!("{}", &txt)]);
+                block.insert("cat".into(), vec![txt.to_string()]);
             } else {
                 block.insert("cat".into(), vec!["Arquivo não encontrado".into()]);
             }
@@ -164,7 +164,7 @@ fn run_command(
             let mut new_blocks = (*lines).clone();
 
             let mut block = HashMap::new();
-            block.insert("echo".into(), vec![format!("{}", txt)]);
+            block.insert("echo".into(), vec![txt]);
 
             new_blocks.push(block);
             lines.set(new_blocks);
