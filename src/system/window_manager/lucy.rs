@@ -1,4 +1,6 @@
 use yew::prelude::*;
+use gloo::timers::callback::Interval;
+use web_sys::window;
 use crate::{
     Management,
     software::LocalSoftware,
@@ -26,9 +28,22 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
     let position = use_state(|| (100, 100));
     let dragging = use_state(|| false);
     let last_mouse = use_state(|| (0, 0));
+    let show_overlay = use_state(|| false);
+    let fps = use_state(|| 60);
     let state = use_context::<UseStateHandle<Management>>().expect("No ctx found.");
 
     let on_close = LocalSoftware::close(state.clone(), props.pid.clone());
+
+    {
+        let fps = fps.clone();
+        use_effect_with((), move |_| {
+            let interval = Interval::new(500, move || {
+                let val = 55 + ((js_sys::Math::random() * 10.0) as u32);
+                fps.set(val);
+            });
+            Box::new(move || drop(interval))
+        });
+    }
 
     let on_mousedown = {
         let dragging = dragging.clone();
@@ -77,6 +92,13 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
         })
     };
 
+    let onclick_overlay = {
+        let show_overlay = show_overlay.clone();
+        Callback::from(move |_| {
+            show_overlay.set(!*show_overlay);
+        })
+    };
+
     let style = format!(
         "left: {}px; top: {}px;",
         position.0, position.1
@@ -92,16 +114,22 @@ pub fn WindowLucyRoot(props: &PropsWindowLucy) -> Html {
             onclick={on_click}
             style={style}
         >
+            if *show_overlay {
+                <div class="absolute -top-16 right-0 bg-black border-2 border-cyan-400 text-white p-2 text-xs z-50">
+                    <div class="text-cyan-400 font-bold">{"[ WINDOW OVERLAY ]"}</div>
+                    <div>{"PID: "}{&props.pid}</div>
+                    <div>{"App: "}{&props.name_window}</div>
+                    <div>{"FPS: "}{*fps}</div>
+                    <div>{"Pos: "}{position.0}{","}{position.1}</div>
+                </div>
+            }
             <div class="h-[30px] bg-black cursor-move flex items-center justify-between gap-2 py-2 px-2" onmousedown={on_mousedown}>
-                /*<div class="flex items-center gap-2">
-                    <span class="h-[25px] w-[25px] border-[7px] border-solid border-pink-600 bg-pink-300"/>
-                    <span class="h-[25px] w-[25px] border-[7px] border-solid border-pink-600 bg-pink-300"/>
-                </div>*/
                 <div class="flex items-center justify-between gap-2 w-full">
                     <span class="h-2 w-full sway-color-bg"/>
                     <p class="whitespace-nowrap text-white">{"[ "} {&props.name_window} {format!("@{}", &props.pid)} {" ]"}</p>
                     <span class="h-2 w-full sway-color-bg"/>
                 </div>
+                <button onclick={onclick_overlay.clone()} class="text-xs font-bold flex items-center justify-center text-center h-[20px] px-1 border border-cyan-400 text-cyan-400 mr-1">{"OV"}</button>
                 <button onclick={on_close} class="text-3xl font-bold flex items-center justify-center text-center h-[25px] sway-color">{"/"}</button>
             </div>
             <div class={&props.sub_style}>

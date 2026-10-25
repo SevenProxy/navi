@@ -1,11 +1,19 @@
 use yew::prelude::*;
 use web_sys::HtmlInputElement;
 use std::collections::HashMap;
-use crate::system::{
-    WindowLucyRoot,
-    PropsWindowLucy,
+use crate::{
+    Management,
+    system::{
+        WindowLucyRoot,
+        PropsWindowLucy,
+        local_storage::{
+            set_item,
+            get_all_storage_values,
+        },
+    },
 };
 use super::PropsBinare;
+use js_sys::Math;
 
 #[derive(Debug)]
 enum Command {
@@ -71,7 +79,16 @@ fn parse_command(input: &str) -> Command {
             let reset = parts.collect::<Vec<_>>().join(" ");
             Command::Echo(reset)
         },
-        Some(other) => Command::Unknown(other.to_string()),
+        Some(other) => {
+            // Check if it's an installed binary/application
+            let known_bins = ["foot", "lain", "lain_music", "about", "guild", "navi"];
+            if known_bins.contains(&other) {
+                // We'll handle running binaries in run_command
+                Command::Unknown(format!("RUN:{}", other))
+            } else {
+                Command::Unknown(other.to_string())
+            }
+        },
         None => Command::Unknown(String::new()),
     }
 }
@@ -130,7 +147,14 @@ fn run_command(
             let mut new_blocks = (*lines).clone();
 
             let mut block = HashMap::new();
-            block.insert(cmd, vec!["Comando foi encontrado.".into()]);
+            if cmd.is_empty() {
+                block.insert("".into(), vec![]);
+            } else if cmd.starts_with("RUN:") {
+                let bin_name = cmd.trim_start_matches("RUN:").to_string();
+                block.insert("exec".into(), vec![format!("Iniciando {}...", bin_name)]);
+            } else {
+                block.insert(cmd.clone(), vec![format!("Comando não encontrado: {}", cmd)]);
+            }
 
             new_blocks.push(block);
             lines.set(new_blocks);
@@ -167,6 +191,7 @@ fn run_command(
 pub fn Foot(props: &PropsBinare) -> Html {
     let output_history = use_state(Vec::<HashMap<String, Vec<String>>>::new);
     let input_value = use_state(String::new);
+    let state = use_context::<UseStateHandle<Management>>().expect("No ctx found.");
 
     {
         let blocks = output_history.clone();
@@ -197,6 +222,7 @@ pub fn Foot(props: &PropsBinare) -> Html {
     let onsubmit = {
         let output_history = output_history.clone();
         let input_value = input_value.clone();
+        let state = state.clone();
 
         Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
@@ -205,7 +231,30 @@ pub fn Foot(props: &PropsBinare) -> Html {
                 return;
             }
 
-            let command_cli = parse_command(input_value.as_str());
+            let command_str = input_value.as_str();
+            let command_cli = parse_command(command_str);
+            
+            // Handle running binaries
+            if let Command::Unknown(ref cmd) = command_cli {
+                if cmd.starts_with("RUN:") {
+                    let bin_name = cmd.trim_start_matches("RUN:").to_string();
+                    let random_pid = (Math::random() * 99999_f64) as usize;
+                    let current_pid = random_pid.to_string();
+                    set_item(current_pid.as_str(), bin_name.as_str());
+                    state.set(Management {
+                        pid: get_all_storage_values(),
+                        soft_current: Some(bin_name.clone()),
+                    });
+                    let mut new_blocks = (*output_history).clone();
+                    let mut block = HashMap::new();
+                    block.insert("exec".into(), vec![format!("Iniciando {}...", bin_name)]);
+                    new_blocks.push(block);
+                    output_history.set(new_blocks);
+                    input_value.set(String::new());
+                    return;
+                }
+            }
+            
             run_command(command_cli, output_history.clone());
 
             input_value.set(String::new());

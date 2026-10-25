@@ -20,6 +20,8 @@ pub fn Waybar() -> Html {
     let window_start = use_state(|| false);
     let menu_software = use_state(String::new);
     let memory_usage = use_state(|| 0);
+    let cpu_temp = use_state(|| 0);
+    let show_overlay = use_state(|| false);
     let state = use_context::<UseStateHandle<Management>>().expect("No ctx found");
     let local = LocalSoftware::execute(state.clone());
     let now = Local::now();
@@ -57,25 +59,58 @@ pub fn Waybar() -> Html {
 
     {
         let memory_usage = memory_usage.clone();
+        let cpu_temp = cpu_temp.clone();
         use_effect_with((), move |_| {
             let interval = Interval::new(1000, move || {
                 if let Some(window) = window() && let Ok(perf) = window.performance().ok_or("no perf") {
-                    let memory = js_sys::Reflect::get(&perf, &"memory".into()).unwrap();
-                    let used_heap = js_sys::Reflect::get(&memory, &"usedJSHeapSize".into()).unwrap();
-                    let mb = (used_heap.as_f64().unwrap() / 1024.0 / 1024.0) as u32;
-
-                    memory_usage.set(mb);
+                    if let Ok(memory) = js_sys::Reflect::get(&perf, &"memory".into()) {
+                        if let Ok(used_heap) = js_sys::Reflect::get(&memory, &"usedJSHeapSize".into()) {
+                            if let Some(used_heap_f64) = used_heap.as_f64() {
+                                let mb = (used_heap_f64 / 1024.0 / 1024.0) as u32;
+                                memory_usage.set(mb);
+                            }
+                        }
+                    }
                 }
+                // Simulate CPU temperature
+                let temp = 45 + ((js_sys::Math::random() * 15.0) as u32);
+                cpu_temp.set(temp);
             });
 
             Box::new(move || drop(interval))
         })
     }
 
+    let onclick_overlay = {
+        let show_overlay = show_overlay.clone();
+        Callback::from(move |_| {
+            show_overlay.set(!*show_overlay);
+        })
+    };
+
     html! {
         <>
         if *window_start {
             <button onclick={&onclick_start} class="absolute z-30 top-0 left-0 w-full h-full bg-transparent"></button>
+        }
+        if *show_overlay {
+            <div class="absolute z-50 top-12 right-2 bg-black border-2 border-pink-600 text-white p-4 min-w-[250px] shadow-lg">
+                <div class="text-pink-400 font-bold mb-2">{"[ SYSTEM OVERLAY ]"}</div>
+                <div class="flex flex-col gap-1 text-sm">
+                    <div class="flex justify-between">
+                        <span>{"CPU Temp:"}</span>
+                        <span class="text-green-400">{*cpu_temp}{"°C"}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>{"Memory:"}</span>
+                        <span class="text-blue-400">{*memory_usage}{" MB"}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>{"Session:"}</span>
+                        <span class="text-yellow-400">{"navi"}</span>
+                    </div>
+                </div>
+            </div>
         }
         <header class="w-full h-fit p-0 relative z-40">
             if *window_start {
@@ -142,11 +177,18 @@ pub fn Waybar() -> Html {
                                 <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11"/>
                             </svg>
                         </button>
+                        <button onclick={onclick_overlay.clone()} class="bg-none border-0 sway-color flex items-center gap-2">
+                            <svg fill="currentColor" class="bi bi-thermometer-half w-4 h-4" viewBox="0 0 16 16">
+                                <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V6.5a.5.5 0 0 1 1 0v4.585a1.5 1.5 0 0 1 1 1.415"/>
+                                <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1"/>
+                            </svg>
+                            <span class="text-xs">{*cpu_temp}{"°C"}</span>
+                        </button>
                         <div class="flex sway-color items-center gap-2">
                             <svg fill="currentColor" class="bi bi-memory w-4 h-4" viewBox="0 0 16 16">
                                 <path d="M1 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.586a1 1 0 0 0 .707-.293l.353-.353a.5.5 0 0 1 .708 0l.353.353a1 1 0 0 0 .707.293H15a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm.5 1h3a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5m5 0h3a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5m4.5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5zM2 10v2H1v-2zm2 0v2H3v-2zm2 0v2H5v-2zm3 0v2H8v-2zm2 0v2h-1v-2zm2 0v2h-1v-2zm2 0v2h-1v-2z"/>
                             </svg>
-                            {*memory_usage}
+                            {*memory_usage}{" MB"}
                         </div>
                     </ul>
                 </nav>
