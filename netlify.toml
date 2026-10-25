@@ -1,6 +1,6 @@
 [build]
 	publish = "dist"
-	command = "rustup target add wasm32-unknown-unknown && curl -L -o trunk.tar.gz https://github.com/trunk-rs/trunk/releases/download/v0.21.14/trunk-x86_64-unknown-linux-gnu.tar.gz && tar -xzf trunk.tar.gz && chmod +x trunk && mv trunk /opt/buildhome/.local/bin/ 2>/dev/null || mv trunk /usr/local/bin/ && trunk build --release"
+	command = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && export PATH=$HOME/.cargo/bin:$PATH && rustup target add wasm32-unknown-unknown && curl -L -o trunk.tar.gz https://github.com/trunk-rs/trunk/releases/download/v0.21.14/trunk-x86_64-unknown-linux-gnu.tar.gz && tar -xzf trunk.tar.gz && chmod +x trunk && mv trunk $HOME/.cargo/bin/ && trunk build --release"
 
 [[headers]]
 	for = "/*.wasm"
